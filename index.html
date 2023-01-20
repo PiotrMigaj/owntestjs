@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Piotr Migaj">
+    <title>TestJs app</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div>
+            <p class="intro" id="intro">Hello this is Peter!</p>
+            <p>Happy to see you!</p>
+            <p id="blankParagraph"></p>
+            <button id="displayHello">Display Hello!</button>
+            <div id="blankUserTable"></div>
+            <button id="displayUsers" style="margin-top: 10px;">Display Users!</button>
+        </div>
+    </main>
+    <footer></footer>
+
+<script>
+    const VALUE = 5;
+    let a = document.getElementById("intro").innerHTML;
+    console.log(VALUE);
+    console.log(a);
+    const URL_HELLO = 'http://localhost:8080/hello'
+    const URL_USERS = 'http://localhost:8080/users'
+    let b = document.getElementById("intro");
+    b.innerHTML = `<a href=${URL_HELLO} target="_blank"> Link do appSpring </a>`;
+
+
+    hello();
+
+    function hello(){
+       const innerBlankParagraph = document.getElementById("blankParagraph");
+        document.getElementById("displayHello").addEventListener('click',(event)=>{
+            event.preventDefault();
+            fetch(URL_HELLO)
+                .then(response=>response.text())
+                .then(text=>innerBlankParagraph.innerHTML=`${text}`)
+                .catch(
+                    error=>console.error(`Hello: ${error}`)
+                )
+        }); 
+    }
+
+    users();
+
+    function users(){
+        const innerBlankUserTable = document.getElementById("blankUserTable");
+        document.getElementById("displayUsers").addEventListener('click',(event)=>{
+            event.preventDefault();
+            fetch(URL_USERS)
+                .then(response=>response.json())
+                .then(json=>innerBlankUserTable.innerHTML=`<p>${JSON.stringify(json)}</p>`)
+                .catch(
+                    error=>console.error(`Hello: ${error}`)
+                )
+        }); 
+    }
+
+    createTable();
+
+    function createTable(){
+        const innerBlankUserTable = document.getElementById("blankUserTable");
+        innerBlankUserTable.innerHTML=`
+        <table>
+            <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+            </tr>
+            ${
+                for(let i=0;i<3;i++){
+                    
+                }
+            }
+
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+            </tr>
+        </table>
+        `;
+    }
+
+    
+
+</script>
+</body>
+</html>
